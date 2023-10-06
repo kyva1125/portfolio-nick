@@ -123,6 +123,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  font_awesome_flutter:
+    dependency: "direct main"
+    description:
+      name: font_awesome_flutter
+      sha256: "5fb789145cae1f4c3245c58b3f8fb287d055c26323879eab57a7bf0cfd1e45f3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.5.0"
   google_fonts:
     dependency: "direct main"
     description:
@@ -155,6 +163,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  loop_page_view:
+    dependency: "direct main"
+    description:
+      name: loop_page_view
+      sha256: ed0059c44e29fbdaf1f865cb4511820e6a0e29996a386e05c80d086ce0cf1a00
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.5"
   matcher:
     dependency: transitive
     description:

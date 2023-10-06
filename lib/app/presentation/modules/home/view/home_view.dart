@@ -28,7 +28,10 @@ class HomeView extends StatelessWidget {
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text('NICK LEDESMA', style: headerTextStyle(),),
+                      Text(
+                        'NICK LEDESMA',
+                        style: headerTextStyle(),
+                      ),
                       const Spacer(),
                       SizedBox(
                         height: 30,
@@ -70,7 +73,10 @@ class HomeView extends StatelessWidget {
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text('NICK LEDESMA', style: headerTextStyle(),),
+                      Text(
+                        'NICK LEDESMA',
+                        style: headerTextStyle(),
+                      ),
                       const Spacer(),
                       PopupMenuButton(
                         icon: const Icon(
@@ -88,11 +94,13 @@ class HomeView extends StatelessWidget {
                                 .entries
                                 .map(
                                   (e) => PopupMenuItem(
-
                                     onTap: () {
                                       //scrollTo(index: e.key);
                                     },
-                                    child: Text(e.value, style: headerTextStyle(),),
+                                    child: Text(
+                                      e.value,
+                                      style: headerTextStyle(),
+                                    ),
                                   ),
                                 )
                                 .toList(),
@@ -107,20 +115,21 @@ class HomeView extends StatelessWidget {
             children: [
               Home(),
               AboutMe(),
-              // MyServices(),
-              // Portfolio(),
-              // Footer(),
+              MyServices(),
+              Portfolio(),
+              Footer(),
             ],
           ),
         ));
   }
 
   AnimatedContainer _buildNavBarAnimatedContainer(int index, bool hover) {
+    final onMenuHover = Matrix4.identity()..scale(1.0);
     return AnimatedContainer(
       alignment: Alignment.center,
       width: hover ? 80 : 75,
       duration: const Duration(milliseconds: 200),
-      transform: hover ? homeProvider.read.onMenuHover : null,
+      transform: hover ? onMenuHover : null,
       child: Text(
         homeProvider.read.menuItems[index],
         style: headerTextStyle(color: hover ? Colors.black : Colors.white),

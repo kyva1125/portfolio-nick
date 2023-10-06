@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 
-
 TextStyle headerTextStyle({Color color = Colors.white}) {
   return GoogleFonts.signikaNegative(
     fontSize: 18,
@@ -29,10 +28,10 @@ TextStyle headingStyles({Color color = Colors.white}) {
   );
 }
 
-TextStyle normalStyle({Color color = Colors.white}) {
+TextStyle normalStyle({Color color = Colors.white, int size = 3}) {
   return TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 3.sw,
+    fontSize: size.sw,
     color: color,
     letterSpacing: 1.7,
     height: 1.5,

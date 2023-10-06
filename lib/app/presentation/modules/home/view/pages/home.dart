@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
@@ -111,7 +113,13 @@ class Home extends StatelessWidget {
         SizedBox(height: 20.0),
         FadeInUp(
           duration: const Duration(milliseconds: 1800),
-          child: ElevatedButton(onPressed: () {}, child: Text('Descargar CV', style: normalStyle(color: bgColor),)),
+          child: ElevatedButton(onPressed: () {
+
+            AnchorElement anchorElement = AnchorElement(href: 'assets/pdf/cv_nick.pdf');
+            anchorElement.download = "CV Nick Ledesma";
+            anchorElement.click();
+
+          }, child: Text('Descargar CV', style: normalStyle(color: bgColor),)),
         ),
       ],
     );

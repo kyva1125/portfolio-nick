@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_meedu/ui.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../../data/helpers/typography.dart';
 import '../../controller/home_provider.dart';
@@ -11,41 +12,40 @@ class Portfolio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return ResponsiveBuilder(
+        builder: (context, sizingInformation) =>
+            _portfolioContent(sizingInformation));
+  }
+
+  Widget _portfolioContent(SizingInformation sizingInformation) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: sizingInformation.isDesktop? 20.sw : 5.sw, vertical: 20),
       child: Column(
         children: [
-          FadeInDown(
-            duration: const Duration(milliseconds: 1200),
-            child: RichText(
-              text: TextSpan(
-                text: 'Latest ',
-                style: headingStyles(),
-                children: [
-                  TextSpan(
-                    text: 'Projects',
-                    style: headingStyles(
-                        color: Colors.red),
-                  )
-                ],
-              ),
-            ),
-          ),
-          SizedBox(height: 40.0),
+          _titlePortfolio(),
+          const SizedBox(height: 20.0),
           Consumer(
             builder: (_, ref, __) {
               final controller = ref.watch(homeProvider);
               return GridView.builder(
-                itemCount: controller.images.length,
+
+                itemCount: controller.imagesPortfolio.length,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  mainAxisExtent: 280,
-                  mainAxisSpacing: 24,
-                  crossAxisSpacing: 24,
+                  crossAxisCount: sizingInformation.isDesktop
+                      ? 3
+                      : sizingInformation.isTablet
+                          ? 2
+                          : 1,
+                  mainAxisExtent: 480,
+                  mainAxisSpacing: 20,
+                  crossAxisSpacing: 20,
                 ),
                 itemBuilder: (context, index) {
-                  var image = controller.images[index];
+                  var image = controller.imagesPortfolio[index];
+                  var imageList = controller.listImagesPortfolio[index];
+
                   return FadeInUpBig(
                     duration: const Duration(milliseconds: 1600),
                     child: InkWell(
@@ -60,15 +60,34 @@ class Portfolio extends StatelessWidget {
                         },
                         child: ItemPortfolio(
                           index: index,
-                          image: image, hoveredIndex: controller.hoveredIndex,
-                        )
-                    ),
+                          imagePortada: image,
+                          imagesList: imageList,
+                          hoveredIndex: controller.hoveredIndex,
+                        )),
                   );
                 },
               );
             },
           ),
         ],
+      ),
+    );
+  }
+
+  FadeInDown _titlePortfolio() {
+    return FadeInDown(
+      duration: const Duration(milliseconds: 1200),
+      child: RichText(
+        text: TextSpan(
+          text: 'Ultimos ',
+          style: headingStyles(),
+          children: [
+            TextSpan(
+              text: 'Proyectos',
+              style: headingStyles(color: Colors.red),
+            )
+          ],
+        ),
       ),
     );
   }
