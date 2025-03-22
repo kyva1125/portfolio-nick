@@ -1,76 +1,121 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_meedu/ui.dart';
+import 'package:flutter_meedu/screen_utils.dart';
 import 'package:portfolio_nick_flutter/app/presentation/modules/home/view/pages/about_me.dart';
 import 'package:portfolio_nick_flutter/app/presentation/modules/home/view/pages/footer.dart';
 import 'package:portfolio_nick_flutter/app/presentation/modules/home/view/pages/home.dart';
 import 'package:portfolio_nick_flutter/app/presentation/modules/home/view/pages/my_services.dart';
+import 'package:portfolio_nick_flutter/app/presentation/modules/home/view/pages/my_skins.dart';
 import 'package:portfolio_nick_flutter/app/presentation/modules/home/view/pages/portfolio.dart';
-import 'package:responsive_builder/responsive_builder.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../../../data/helpers/colors.dart';
 import '../../../../data/helpers/typography.dart';
 import '../controller/home_provider.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  final ItemScrollController _itemScrollController = ItemScrollController();
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
+  final ScrollOffsetListener scrollOffsetListener =
+      ScrollOffsetListener.create();
+
+  var menuIndex = 0;
+
+  final menuItems = <String>[
+    'Inicio',
+    'Sobre mi',
+    'Mis habilidades',
+    'Mi Experiencia',
+    'Servicios',
+    'Portafolio',
+  ];
+
+  final screensList = const <Widget>[
+    Home(),
+    AboutMe(),
+    MySkins(),
+    MyServices(),
+    Portfolio(),
+    Footer(),
+  ];
+
+  Future scrollTo({required int index}) async {
+    _itemScrollController
+        .scrollTo(
+            index: index,
+            duration: const Duration(seconds: 2),
+            curve: Curves.fastLinearToSlowEaseIn)
+        .whenComplete(() {
+      setState(() {
+        menuIndex = index;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: bgColor,
+        floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.white,
+            onPressed: () => scrollTo(index: 0),
+            child: Icon(
+              Icons.arrow_upward,
+              size: 25,
+              color: bgColor2,
+            )),
         appBar: AppBar(
             backgroundColor: bgColor,
             toolbarHeight: 90,
             titleSpacing: 100,
-            title: ResponsiveBuilder(
-              builder: (context, sizingInformation) {
-                if (sizingInformation.isDesktop) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+            title: (Device.screenType == ScreenType.tablet)
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'NICK LEDESMA',
-                        style: headerTextStyle(),
-                      ),
-                      const Spacer(),
-                      SizedBox(
-                        height: 30,
-                        child: ListView.separated(
-                          itemCount: homeProvider.read.menuItems.length,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          separatorBuilder: (context, child) =>
-                              const SizedBox(width: 8),
-                          itemBuilder: (context, index) {
-                            return InkWell(
+                        Text(
+                          'NICK LEDESMA',
+                          style: headerTextStyle(),
+                        ),
+                        SizedBox(
+                          height: 30,
+                          child: ListView.separated(
+                            itemCount: menuItems.length,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            separatorBuilder: (context, child) => SizedBox(
+                              width: 10,
+                            ),
+                            itemBuilder: (context, index) {
+                              return InkWell(
                                 onTap: () {
-                                  // scrollTo(index: index);
+                                  scrollTo(index: index);
                                 },
                                 borderRadius: BorderRadius.circular(100),
                                 onHover: (value) {
-                                  if (value) {
-                                    homeProvider.read.menuIndex = index;
-                                  } else {
-                                    homeProvider.read.menuIndex = 0;
-                                  }
-                                  homeProvider.read.notify();
+                                  setState(() {
+                                    if (value) {
+                                      menuIndex = index;
+                                    } else {
+                                      menuIndex = 0;
+                                    }
+                                  });
                                 },
-                                child: Consumer(builder: (_, ref, __) {
-                                  final controller = ref.watch(homeProvider);
-                                  return _buildNavBarAnimatedContainer(
-                                      index,
-                                      controller.menuIndex == index
-                                          ? true
-                                          : false);
-                                }));
-                          },
+                                child: buildNavBarAnimatedContainer(
+                                    index, menuIndex == index ? true : false),
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 30),
-                    ],
-                  );
-                } else {
-                  return Row(
+                      ])
+                : Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
@@ -86,54 +131,53 @@ class HomeView extends StatelessWidget {
                         ),
                         color: bgColor2,
                         position: PopupMenuPosition.under,
-                        constraints:
-                            BoxConstraints.tightFor(width: context.width * 0.9),
-                        itemBuilder: (BuildContext context) =>
-                            homeProvider.read.menuItems
-                                .asMap()
-                                .entries
-                                .map(
-                                  (e) => PopupMenuItem(
-                                    onTap: () {
-                                      //scrollTo(index: e.key);
-                                    },
-                                    child: Text(
-                                      e.value,
-                                      style: headerTextStyle(),
-                                    ),
-                                  ),
-                                )
-                                .toList(),
+                        constraints: BoxConstraints.tightFor(
+                            width: context.width * 0.9),
+                        itemBuilder: (BuildContext context) => menuItems
+                            .asMap()
+                            .entries
+                            .map(
+                              (e) => PopupMenuItem(
+                                onTap: () {
+                                  scrollTo(index: e.key);
+                                },
+                                child: Text(
+                                  e.value,
+                                  style: headerTextStyle(),
+                                ),
+                              ),
+                            )
+                            .toList(),
                       ),
                     ],
-                  );
-                }
-              },
-            )),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Home(),
-              AboutMe(),
-              MyServices(),
-              Portfolio(),
-              Footer(),
-            ],
-          ),
+                  )),
+        body: ScrollablePositionedList.builder(
+          itemCount: screensList.length,
+          itemScrollController: _itemScrollController,
+          itemPositionsListener: itemPositionsListener,
+          scrollOffsetListener: scrollOffsetListener,
+          itemBuilder: (context, index) {
+            return screensList[index];
+          },
         ));
   }
 
-  AnimatedContainer _buildNavBarAnimatedContainer(int index, bool hover) {
-    final onMenuHover = Matrix4.identity()..scale(1.0);
-    return AnimatedContainer(
-      alignment: Alignment.center,
-      width: hover ? 80 : 75,
-      duration: const Duration(milliseconds: 200),
-      transform: hover ? onMenuHover : null,
-      child: Text(
-        homeProvider.read.menuItems[index],
-        style: headerTextStyle(color: hover ? Colors.black : Colors.white),
-      ),
+  Widget buildNavBarAnimatedContainer(int index, bool hover) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          menuItems[index],
+          style: headerTextStyle(color: Colors.white),
+        ),
+        AnimatedContainer(
+          color: Colors.white,
+          height: 5,
+          width: hover ? 25 : 0,
+          curve: Curves.easeInOut,
+          duration: const Duration(milliseconds: 200),
+        ),
+      ],
     );
   }
 }

@@ -1,10 +1,25 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_meedu/meedu.dart';
+import 'dart:async';
 
-class HomeController extends SimpleNotifier {
-  bool serviceFlutter = false, serviceFigma = false;
+import 'package:flutter/cupertino.dart';
+import 'package:meedu/notifiers.dart';
+import 'package:portfolio_nick_flutter/app/presentation/modules/home/controller/home_state.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+
+class HomeNotifier extends StateNotifier<HomeState> {
+  HomeNotifier(super.initialState);
 
   var hoveredIndex;
+  var menuIndex = 0;
+
+
+
+
+
+
+  @override
+  FutureOr<void> dispose() {
+    return super.dispose();
+  }
 
   final List<List<String>> listImagesPortfolio = [
     imagesCine,
@@ -75,22 +90,4 @@ class HomeController extends SimpleNotifier {
   ];
 
 
-
-  final menuItems = <String>[
-    'Inicio',
-    'Sobre mi',
-    'Servicios',
-    'Portafolio',
-  ];
-
-  var menuIndex = 0;
-
-// final screensList = const <Widget>[
-//   HomePage(),
-//   AboutMe(),
-//   MyServices(),
-//   MyPortfolio(),
-//   ContactUs(),
-//   FooterClass(),
-// ];
 }

@@ -1,12 +1,9 @@
-import 'dart:html';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_meedu/ui.dart';
 import 'package:portfolio_nick_flutter/app/data/helpers/colors.dart';
 import 'package:portfolio_nick_flutter/app/presentation/modules/home/view/widgets/profile_animation.dart';
-import 'package:responsive_builder/responsive_builder.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../../../../data/helpers/typography.dart';
 
@@ -15,44 +12,15 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveBuilder(
-      builder: (context, sizingInformation) {
-        if (sizingInformation.deviceScreenType ==
-            DeviceScreenType.desktop) {
-          return _builderDesktopHome();
-        }
-
-        return _builderMobileAndTabletHome();
-      },
-    );
-  }
-
-  Widget _builderMobileAndTabletHome() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 5.sw, vertical: 20),
-      child: Column(
-        children: [
-          _informationMain(),
-          SizedBox(
-            height: 20,
-          ),
-          ProfileAnimation()
-        ],
-      ),
-    );
+    return _builderDesktopHome();
   }
 
   Widget _builderDesktopHome() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.sw, vertical: 20),
+      padding: EdgeInsets.symmetric(horizontal: 10.sw, vertical: 20),
       child: Row(
-        children: [
-          Expanded(child: _informationMain()),
-          SizedBox(
-            width: 20,
-          ),
-          ProfileAnimation()
-        ],
+        spacing: 20,
+        children: [Expanded(child: _informationMain()), ProfileAnimation()],
       ),
     );
   }
@@ -113,13 +81,12 @@ class Home extends StatelessWidget {
         SizedBox(height: 20.0),
         FadeInUp(
           duration: const Duration(milliseconds: 1800),
-          child: ElevatedButton(onPressed: () {
-
-            AnchorElement anchorElement = AnchorElement(href: 'assets/pdf/cv_nick.pdf');
-            anchorElement.download = "CV Nick Ledesma";
-            anchorElement.click();
-
-          }, child: Text('Descargar CV', style: normalStyle(color: bgColor),)),
+          child: ElevatedButton(
+              onPressed: () {},
+              child: Text(
+                'Descargar CV',
+                style: normalStyle(color: bgColor),
+              )),
         ),
       ],
     );

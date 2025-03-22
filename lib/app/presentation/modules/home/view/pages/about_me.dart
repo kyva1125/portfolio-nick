@@ -1,6 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:responsive_builder/responsive_builder.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../../../../data/helpers/typography.dart';
 
@@ -9,21 +9,9 @@ class AboutMe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveBuilder(
-      builder: (context, sizingInformation) {
-        if (sizingInformation.deviceScreenType ==
-            DeviceScreenType.desktop) {
-          return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.sw, vertical: 20),
-            child: buildAboutMeContents(),
-          );
-        }
-
-        return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 5.sw, vertical: 20),
-          child: buildAboutMeContents(),
-        );
-      },
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10.sw, vertical: 10),
+      child: buildAboutMeContents(),
     );
   }
 
@@ -49,30 +37,25 @@ class AboutMe extends StatelessWidget {
             style: normalStyle(),
           ),
         ),
-        // SizedBox(height: 15.0),
-        // FadeInUp(
-        //   duration: const Duration(milliseconds: 1800),
-        //   child: ElevatedButton(onPressed: () {}, child: Text('Read More')),
-        // )
       ],
     );
   }
 
   FadeInRight _titleAboutMe() {
     return FadeInRight(
-        duration: const Duration(milliseconds: 1200),
-        child: RichText(
-          text: TextSpan(
-            text: 'Acerca de ',
-            style: headingStyles(),
-            children: [
-              TextSpan(
-                text: 'Mi!',
-                style: headingStyles(color: Colors.blue),
-              )
-            ],
-          ),
+      duration: const Duration(milliseconds: 1200),
+      child: RichText(
+        text: TextSpan(
+          text: 'Acerca de ',
+          style: headingStyles(),
+          children: [
+            TextSpan(
+              text: 'Mi!',
+              style: headingStyles(color: Colors.blue),
+            )
+          ],
         ),
-      );
+      ),
+    );
   }
 }

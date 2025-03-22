@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_meedu/ui.dart';
-import 'package:responsive_builder/responsive_builder.dart';
+import 'package:flutter_meedu/consumer/consumer_widget.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../../../../data/helpers/typography.dart';
 import '../../controller/home_provider.dart';
@@ -12,39 +12,33 @@ class Portfolio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveBuilder(
-        builder: (context, sizingInformation) =>
-            _portfolioContent(sizingInformation));
+    return _portfolioContent();
   }
 
-  Widget _portfolioContent(SizingInformation sizingInformation) {
+  Widget _portfolioContent() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: sizingInformation.isDesktop? 20.sw : 5.sw, vertical: 20),
+      padding: EdgeInsets.symmetric(horizontal: 10.sw, vertical: 20),
       child: Column(
         children: [
           _titlePortfolio(),
           const SizedBox(height: 20.0),
           Consumer(
             builder: (_, ref, __) {
-              final controller = ref.watch(homeProvider);
+              final notifier = ref.watch(homeProvider);
               return GridView.builder(
-
-                itemCount: controller.imagesPortfolio.length,
+                itemCount: notifier.imagesPortfolio.length,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: sizingInformation.isDesktop
-                      ? 3
-                      : sizingInformation.isTablet
-                          ? 2
-                          : 1,
+                  crossAxisCount:
+                      (Device.screenType == ScreenType.tablet) ? 3 : 1,
                   mainAxisExtent: 480,
                   mainAxisSpacing: 20,
                   crossAxisSpacing: 20,
                 ),
                 itemBuilder: (context, index) {
-                  var image = controller.imagesPortfolio[index];
-                  var imageList = controller.listImagesPortfolio[index];
+                  var image = notifier.imagesPortfolio[index];
+                  var imageList = notifier.listImagesPortfolio[index];
 
                   return FadeInUpBig(
                     duration: const Duration(milliseconds: 1600),
@@ -52,17 +46,16 @@ class Portfolio extends StatelessWidget {
                         onTap: () {},
                         onHover: (value) {
                           if (value) {
-                            controller.hoveredIndex = index;
+                            notifier.hoveredIndex = index;
                           } else {
-                            controller.hoveredIndex = null;
+                            notifier.hoveredIndex = null;
                           }
-                          controller.notify();
                         },
                         child: ItemPortfolio(
                           index: index,
                           imagePortada: image,
                           imagesList: imageList,
-                          hoveredIndex: controller.hoveredIndex,
+                          hoveredIndex: notifier.hoveredIndex,
                         )),
                   );
                 },

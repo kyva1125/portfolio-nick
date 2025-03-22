@@ -1,7 +1,7 @@
-import 'package:flutter_meedu/meedu.dart';
-import 'home_controller.dart';
+import 'package:meedu/provider/provider.dart';
+import 'package:portfolio_nick_flutter/app/presentation/modules/home/controller/home_notifier.dart';
+import 'package:portfolio_nick_flutter/app/presentation/modules/home/controller/home_state.dart';
 
-final homeProvider = SimpleProvider(
-  (_) => HomeController(),
+final homeProvider = Provider.state<HomeNotifier, HomeState>(
+  (_) => HomeNotifier(HomeState.initialState),
 );
-  

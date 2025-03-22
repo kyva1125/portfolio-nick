@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:responsive_builder/responsive_builder.dart';
-
+import 'package:sizer/sizer.dart';
 
 TextStyle headerTextStyle({Color color = Colors.white}) {
   return GoogleFonts.signikaNegative(
@@ -15,23 +14,23 @@ TextStyle montserratStyle({required Color color}) {
   return GoogleFonts.montserrat(
     color: color,
     fontWeight: FontWeight.w800,
-    fontSize: 4.sw,
+    fontSize: 14.sp,
   );
 }
 
 TextStyle headingStyles({Color color = Colors.white}) {
   return GoogleFonts.rubikMoonrocks(
-    fontSize: 5.sw,
+    fontSize: 16.sp,
     fontWeight: FontWeight.bold,
     color: color,
     letterSpacing: 2,
   );
 }
 
-TextStyle normalStyle({Color color = Colors.white, int size = 3}) {
+TextStyle normalStyle({Color color = Colors.white, int size = 12}) {
   return TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: size.sw,
+    fontSize: size.sp,
     color: color,
     letterSpacing: 1.7,
     height: 1.5,

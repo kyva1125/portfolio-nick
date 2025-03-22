@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_builder/responsive_builder.dart';
+import 'package:sizer/sizer.dart';
 
 class ProfileAnimation extends StatefulWidget {
   const ProfileAnimation({Key? key}) : super(key: key);
@@ -35,7 +35,7 @@ class _ProfileAnimationState extends State<ProfileAnimation>
     return SlideTransition(
       position: _animation,
       child: CircleAvatar(
-        radius: 20.sw,
+        radius: 10.sw,
         backgroundImage: const AssetImage(
           "assets/images/nick_without.png",
         ),

@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:loop_page_view/loop_page_view.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../../data/helpers/typography.dart';
 
@@ -11,7 +10,6 @@ class ItemPortfolio extends StatelessWidget {
       required this.hoveredIndex,
       required this.imagePortada,
       required this.imagesList,
-
       required this.index});
 
   final dynamic hoveredIndex;
@@ -23,7 +21,6 @@ class ItemPortfolio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return InkWell(
       onTap: () {
         showDialog(
@@ -58,8 +55,8 @@ class ItemPortfolio extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              image:
-                  DecorationImage(image: AssetImage(imagePortada), fit: BoxFit.fill),
+              image: DecorationImage(
+                  image: AssetImage(imagePortada), fit: BoxFit.fill),
             ),
           ),
           // Visibility(
