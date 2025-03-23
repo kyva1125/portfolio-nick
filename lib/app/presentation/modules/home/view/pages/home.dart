@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:portfolio_nick_flutter/app/data/helpers/colors.dart';
 import 'package:portfolio_nick_flutter/app/presentation/modules/home/view/widgets/profile_animation.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../data/helpers/typography.dart';
 
@@ -84,7 +85,13 @@ class Home extends StatelessWidget {
         FadeInUp(
           duration: const Duration(milliseconds: 1800),
           child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                final Uri url = Uri.parse(
+                    'https://firebasestorage.googleapis.com/v0/b/portfolio-nick-99602.appspot.com/o/CV%20Nick%20Ledesma.pdf?alt=media&token=ab778dcd-c528-451e-b5a8-29d201b5e792');
+                if (!await launchUrl(url)) {
+                  print('Could not launch $url');
+                }
+              },
               child: Text(
                 'Descargar CV',
                 style: normalStyle(color: bgColor),
@@ -100,18 +107,24 @@ class Home extends StatelessWidget {
       child: Row(
         spacing: 10,
         children: [
-          _itemContact(FontAwesomeIcons.facebook),
-          _itemContact(FontAwesomeIcons.linkedin),
+          _itemContact(FontAwesomeIcons.linkedin, () async {
+            final Uri url = Uri.parse(
+                'https://www.linkedin.com/in/nick-bryan-ledesma-corilloclla-4873761a2/');
+            if (!await launchUrl(url)) {
+              print('Could not launch $url');
+            }
+          }),
+          _itemContact(FontAwesomeIcons.facebook, () {}),
         ],
       ),
     );
   }
 
-  Widget _itemContact(IconData icon) {
+  Widget _itemContact(IconData icon, Function() onPressed) {
     return CircleAvatar(
         backgroundColor: Colors.white,
         child: IconButton(
-          onPressed: () {},
+          onPressed: onPressed,
           icon: FaIcon(
             icon,
             color: bgColor2,
