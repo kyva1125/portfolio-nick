@@ -7,48 +7,29 @@ import '../../../../../data/helpers/typography.dart';
 class ItemPortfolio extends StatelessWidget {
   ItemPortfolio(
       {super.key,
-      required this.hoveredIndex,
       required this.imagePortada,
       required this.imagesList,
-      required this.index});
+      });
 
-  final dynamic hoveredIndex;
   final String imagePortada;
   final List<String> imagesList;
-  final int index;
 
-  final onH0verEffect = Matrix4.identity()..scale(1.0);
+
+  void _showPhotoViewerDialog(BuildContext context, ) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return PhotoViewerDialog(
+          photos: imagesList,
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        showDialog(
-            context: context,
-            builder: (ctx) => Dialog(
-                  child: SizedBox(
-                    height: 900,
-                    width: 600,
-                    child: ScrollConfiguration(
-                      behavior: ScrollConfiguration.of(context).copyWith(
-                        dragDevices: {
-                          PointerDeviceKind.touch,
-                          PointerDeviceKind.mouse
-                        },
-                      ),
-                      child: LoopPageView.builder(
-                        itemCount: imagesList.length,
-                        itemBuilder: (context, index) {
-                          return Image.asset(
-                            imagesList[index],
-                            fit: BoxFit.fill,
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ));
-      },
+      onTap: () => _showPhotoViewerDialog(context,),
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -59,54 +40,106 @@ class ItemPortfolio extends StatelessWidget {
                   image: AssetImage(imagePortada), fit: BoxFit.fill),
             ),
           ),
-          // Visibility(
-          //   visible: index == hoveredIndex,
-          //   child: AnimatedContainer(
-          //     duration: const Duration(milliseconds: 600),
-          //     transform: index == hoveredIndex ? onH0verEffect : null,
-          //     curve: Curves.easeIn,
-          //     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
-          //     decoration: BoxDecoration(
-          //       borderRadius: BorderRadius.circular(20),
-          //       // gradient: LinearGradient(
-          //       //     colors: [
-          //       //       // AppColors.themeColor.withOpacity(1.0),
-          //       //       // AppColors.themeColor.withOpacity(0.9),
-          //       //       // AppColors.themeColor.withOpacity(0.8),
-          //       //       // AppColors.themeColor.withOpacity(0.6),
-          //       //     ],
-          //       //     begin: Alignment.bottomCenter,
-          //       //     end: Alignment.topCenter
-          //       //
-          //       // ),
-          //     ),
-          //     child: Column(
-          //       children: [
-          //         Text(
-          //           'App Development',
-          //           style: montserratStyle(color: Colors.black87),
-          //         ),
-          //         SizedBox(height: 15.0),
-          //         Text(
-          //           'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
-          //           style: normalStyle(color: Colors.black87, size: 2),
-          //           textAlign: TextAlign.center,
-          //         ),
-          //         // SizedBox(height: 30.0),
-          //         // CircleAvatar(
-          //         //   maxRadius: 25,
-          //         //   backgroundColor: Colors.white,
-          //         //   child: Image.asset(
-          //         //     "assets/images/nick_without.png",
-          //         //     width: 25,
-          //         //     height: 25,
-          //         //     fit: BoxFit.fill,
-          //         //   ),
-          //         // )
-          //       ],
-          //     ),
-          //   ),
-          // ),
+        ],
+      ),
+    );
+  }
+}
+
+class PhotoViewerDialog extends StatefulWidget {
+  final List<String> photos;
+
+  const PhotoViewerDialog({
+    Key? key,
+    required this.photos,
+
+  }) : super(key: key);
+
+  @override
+  _PhotoViewerDialogState createState() => _PhotoViewerDialogState();
+}
+
+class _PhotoViewerDialogState extends State<PhotoViewerDialog> {
+  late int _currentIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = 0;
+  }
+
+  void _nextPhoto() {
+    if (_currentIndex < widget.photos.length - 1) {
+      setState(() {
+        _currentIndex++;
+      });
+    }
+  }
+
+  void _previousPhoto() {
+    if (_currentIndex > 0) {
+      setState(() {
+        _currentIndex--;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.black,
+      child: Stack(
+        children: [
+          // Imagen actual
+          Center(
+            child: Image.network(
+              widget.photos[_currentIndex],
+              fit: BoxFit.contain,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
+            ),
+          ),
+
+          // Flecha izquierda
+          if (_currentIndex > 0)
+            Positioned(
+              left: 10,
+              top: 0,
+              bottom: 0,
+              child: IconButton(
+                icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+                onPressed: _previousPhoto,
+                iconSize: 40,
+              ),
+            ),
+
+          // Flecha derecha
+          if (_currentIndex < widget.photos.length - 1)
+            Positioned(
+              right: 10,
+              top: 0,
+              bottom: 0,
+              child: IconButton(
+                icon: const Icon(Icons.arrow_forward_ios, color: Colors.white),
+                onPressed: _nextPhoto,
+                iconSize: 40,
+              ),
+            ),
+
+          // Botón para cerrar el diálogo
+          Positioned(
+            top: 10,
+            right: 10,
+            child: IconButton(
+              icon: const Icon(Icons.close, color: Colors.white),
+              onPressed: () => Navigator.of(context).pop(),
+              iconSize: 30,
+            ),
+          ),
         ],
       ),
     );

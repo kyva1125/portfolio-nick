@@ -11,7 +11,6 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../data/helpers/colors.dart';
 import '../../../../data/helpers/typography.dart';
-import '../controller/home_provider.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -22,29 +21,15 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   final ItemScrollController _itemScrollController = ItemScrollController();
-  final ItemPositionsListener itemPositionsListener =
-      ItemPositionsListener.create();
-  final ScrollOffsetListener scrollOffsetListener =
-      ScrollOffsetListener.create();
 
-  var menuIndex = 0;
+  var menuIndex = -1;
 
   final menuItems = <String>[
     'Inicio',
     'Sobre mi',
     'Mis habilidades',
-    'Mi Experiencia',
     'Servicios',
     'Portafolio',
-  ];
-
-  final screensList = const <Widget>[
-    Home(),
-    AboutMe(),
-    MySkins(),
-    MyServices(),
-    Portfolio(),
-    Footer(),
   ];
 
   Future scrollTo({required int index}) async {
@@ -54,24 +39,30 @@ class _HomeViewState extends State<HomeView> {
             duration: const Duration(seconds: 2),
             curve: Curves.fastLinearToSlowEaseIn)
         .whenComplete(() {
-      setState(() {
-        menuIndex = index;
-      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final screensList = <Widget>[
+      Home(),
+      AboutMe(),
+      MySkins(),
+      MyServices(),
+      Portfolio(),
+      Footer(),
+    ];
+
     return Scaffold(
         backgroundColor: bgColor,
-        floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.white,
-            onPressed: () => scrollTo(index: 0),
-            child: Icon(
-              Icons.arrow_upward,
-              size: 25,
-              color: bgColor2,
-            )),
+        // floatingActionButton: FloatingActionButton(
+        //     backgroundColor: Colors.white,
+        //     onPressed: () => scrollTo(index: 0),
+        //     child: Icon(
+        //       Icons.arrow_upward,
+        //       size: 25,
+        //       color: bgColor2,
+        //     )),
         appBar: AppBar(
             backgroundColor: bgColor,
             toolbarHeight: 90,
@@ -104,7 +95,7 @@ class _HomeViewState extends State<HomeView> {
                                     if (value) {
                                       menuIndex = index;
                                     } else {
-                                      menuIndex = 0;
+                                      menuIndex = -1;
                                     }
                                   });
                                 },
@@ -116,7 +107,7 @@ class _HomeViewState extends State<HomeView> {
                         ),
                       ])
                 : Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         'NICK LEDESMA',
@@ -131,8 +122,8 @@ class _HomeViewState extends State<HomeView> {
                         ),
                         color: bgColor2,
                         position: PopupMenuPosition.under,
-                        constraints: BoxConstraints.tightFor(
-                            width: context.width * 0.9),
+                        constraints:
+                            BoxConstraints.tightFor(width: context.width * 0.9),
                         itemBuilder: (BuildContext context) => menuItems
                             .asMap()
                             .entries
@@ -154,8 +145,6 @@ class _HomeViewState extends State<HomeView> {
         body: ScrollablePositionedList.builder(
           itemCount: screensList.length,
           itemScrollController: _itemScrollController,
-          itemPositionsListener: itemPositionsListener,
-          scrollOffsetListener: scrollOffsetListener,
           itemBuilder: (context, index) {
             return screensList[index];
           },

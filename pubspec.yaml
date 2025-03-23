@@ -80,8 +80,12 @@ flutter:
     - assets/images/mienfermera/
     - assets/images/oxigeno/
     - assets/images/pecano/
+    - assets/images/pecano_web/
     - assets/images/restoner/
     - assets/images/seguridad/
+    - assets/images/andytrack/
+    - assets/images/enotria/
+    - assets/images/comsatel/
     - assets/pdf/
 
   # An image asset can refer to one or more resolution-specific "variants", see

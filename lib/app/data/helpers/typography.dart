@@ -4,7 +4,7 @@ import 'package:sizer/sizer.dart';
 
 TextStyle headerTextStyle({Color color = Colors.white}) {
   return GoogleFonts.signikaNegative(
-    fontSize: 18,
+    fontSize: 12.sp,
     fontWeight: FontWeight.w600,
     color: color,
   );

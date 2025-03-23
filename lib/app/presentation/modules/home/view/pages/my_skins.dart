@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:portfolio_nick_flutter/app/data/helpers/colors.dart';
 
 import '../../../../../data/helpers/typography.dart';
+import '../widgets/title_area.dart';
 
 class MySkins extends StatelessWidget {
   const MySkins({super.key});
@@ -13,7 +14,7 @@ class MySkins extends StatelessWidget {
     return Column(
       spacing: 10,
       children: [
-        _titleSkins(),
+        TitleArea(primero: 'Mis', segundo: 'Habilidades',),
         Row(
           spacing: 10,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -46,21 +47,5 @@ class MySkins extends StatelessWidget {
     );
   }
 
-  FadeInDown _titleSkins() {
-    return FadeInDown(
-      duration: const Duration(milliseconds: 1200),
-      child: RichText(
-        text: TextSpan(
-          text: 'Mis ',
-          style: headingStyles(),
-          children: [
-            TextSpan(
-              text: 'Habilidades',
-              style: headingStyles(color: Colors.red),
-            )
-          ],
-        ),
-      ),
-    );
-  }
+
 }

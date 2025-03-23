@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:portfolio_nick_flutter/app/data/helpers/colors.dart';
 import 'package:portfolio_nick_flutter/app/presentation/modules/home/view/widgets/profile_animation.dart';
 import 'package:sizer/sizer.dart';
@@ -8,19 +9,18 @@ import 'package:sizer/sizer.dart';
 import '../../../../../data/helpers/typography.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key});
+  Home({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return _builderDesktopHome();
-  }
-
-  Widget _builderDesktopHome() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.sw, vertical: 20),
       child: Row(
         spacing: 20,
-        children: [Expanded(child: _informationMain()), ProfileAnimation()],
+        children: [
+          Expanded(child: _informationMain()),
+          ProfileAnimation(),
+        ],
       ),
     );
   }
@@ -79,6 +79,8 @@ class Home extends StatelessWidget {
           ),
         ),
         SizedBox(height: 20.0),
+        contactLinks(),
+        SizedBox(height: 20.0),
         FadeInUp(
           duration: const Duration(milliseconds: 1800),
           child: ElevatedButton(
@@ -90,5 +92,30 @@ class Home extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Widget contactLinks() {
+    return FadeInUp(
+      duration: const Duration(milliseconds: 1600),
+      child: Row(
+        spacing: 10,
+        children: [
+          _itemContact(FontAwesomeIcons.facebook),
+          _itemContact(FontAwesomeIcons.linkedin),
+        ],
+      ),
+    );
+  }
+
+  Widget _itemContact(IconData icon) {
+    return CircleAvatar(
+        backgroundColor: Colors.white,
+        child: IconButton(
+          onPressed: () {},
+          icon: FaIcon(
+            icon,
+            color: bgColor2,
+          ),
+        ));
   }
 }

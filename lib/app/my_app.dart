@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: "Portafolio Nick",
           home: HomeView(),
+
           theme: ThemeData(
               useMaterial3: true,
               primarySwatch: const MaterialColor(

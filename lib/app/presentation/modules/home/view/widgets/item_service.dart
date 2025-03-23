@@ -16,19 +16,15 @@ class ItemService extends StatelessWidget {
   final String content;
   final IconData icon;
 
-
-
   @override
   Widget build(BuildContext context) {
-
     return Container(
-
       alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
       decoration: BoxDecoration(
         color: bgColor2,
         borderRadius: BorderRadius.circular(30),
-        border:Border.all(color: bgColor2, width: 3),
+        border: Border.all(color: bgColor2, width: 3),
         boxShadow: const [
           BoxShadow(
             color: Colors.black54,
@@ -55,7 +51,6 @@ class ItemService extends StatelessWidget {
             content,
             style: normalStyle(size: 10),
             textAlign: TextAlign.justify,
-
           ),
         ],
       ),

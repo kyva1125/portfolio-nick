@@ -1,32 +1,21 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_meedu/consumer/consumer_widget.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../../data/helpers/typography.dart';
-import '../../controller/home_notifier.dart';
-import '../../controller/home_provider.dart';
 import '../widgets/item_service.dart';
+import '../widgets/title_area.dart';
 
 class MyServices extends StatelessWidget {
   const MyServices({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.sw, vertical: 20),
-      child: _myServiceContent(),
-    );
-  }
-
-  List<Widget> _infoServices(HomeNotifier notifier){
+  List<Widget> _infoServices() {
     return [
       ItemService(
         title: 'Flutter developer',
         content:
         "Flutter es una herramienta de código abierto desarrollada por Google que nos permite crear aplicaciones rápidas y hermosas tanto para Android como para iOS. Mi objetivo principal es brindar soluciones eficientes y de calidad a través del desarrollo de aplicaciones móviles con un rendimiento y su amplia gama de widgets personalizables. Además, también me encargo de integrar funcionalidades como servicios en la nube, bases de datos y APIs externas en las aplicaciones que construyo. Esto me permite crear aplicaciones más completas y con características avanzadas. Si estás buscando un desarrollador de servicios en Flutter, puedo ayudarte a crear la aplicación móvil que necesitas. No dudes en contactarme para discutir tus ideas y requerimientos. Estoy aquí para convertir tus ideas en realidad.",
         icon: Icons.mobile_friendly,
-
       ),
       ItemService(
         title: 'UX/UI',
@@ -37,37 +26,28 @@ class MyServices extends StatelessWidget {
     ];
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10.sw, vertical: 20),
+      child: _myServiceContent(),
+    );
+  }
+
+
+
   Widget _myServiceContent() {
     return Column(
       children: [
-        _titleMyService(),
+        TitleArea(primero: 'Mis', segundo: 'Servicios',),
         const SizedBox(height: 20.0),
-        Consumer(builder: (_, ref, __) {
-          final notifier = ref.watch(homeProvider);
-          return  Column(
-            spacing: 20,
-            children: _infoServices(notifier),
-          ) ;
-        })
+        Column(
+          spacing: 20,
+          children: _infoServices(),
+        )
       ],
     );
   }
 
-  FadeInDown _titleMyService() {
-    return FadeInDown(
-      duration: const Duration(milliseconds: 1200),
-      child: RichText(
-        text: TextSpan(
-          text: 'Mis ',
-          style: headingStyles(),
-          children: [
-            TextSpan(
-              text: 'Servicios',
-              style: headingStyles(),
-            )
-          ],
-        ),
-      ),
-    );
-  }
+
 }
