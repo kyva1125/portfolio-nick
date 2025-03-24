@@ -19,7 +19,10 @@ class Portfolio extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 10.sw, vertical: 20),
       child: Column(
         children: [
-          TitleArea(primero: 'Ultimos', segundo: 'Proyectos',),
+          TitleArea(
+            primero: 'Ultimos',
+            segundo: 'Proyectos',
+          ),
           const SizedBox(height: 20.0),
           GridView.builder(
             itemCount: homeProvider.read().imagesPortfolio.length,
@@ -28,18 +31,20 @@ class Portfolio extends StatelessWidget {
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: (Device.screenType == ScreenType.tablet) ? 3 : 2,
               // mainAxisExtent: 400,
-              childAspectRatio: 1/2,
+              childAspectRatio: 1 / 2,
               mainAxisSpacing: 20,
               crossAxisSpacing: 20,
             ),
             itemBuilder: (context, index) {
-              var image = homeProvider.read().imagesPortfolio[index];
-              var imageList = homeProvider.read().listImagesPortfolio[index];
+              var reversedImages = homeProvider.read().imagesPortfolio.reversed.toList();
+              var reversedImageList = homeProvider.read().listImagesPortfolio.reversed.toList();
+
+              var image = reversedImages[index];
+              var imageList = reversedImageList[index];
 
               return FadeInUpBig(
                 duration: const Duration(milliseconds: 1600),
                 child: ItemPortfolio(
-
                   imagePortada: image,
                   imagesList: imageList,
                 ),
@@ -50,6 +55,4 @@ class Portfolio extends StatelessWidget {
       ),
     );
   }
-
-
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio_nick_flutter/app/data/helpers/colors.dart';
 import 'package:sizer/sizer.dart';
 
 class ProfileAnimation extends StatefulWidget {
@@ -34,10 +35,20 @@ class _ProfileAnimationState extends State<ProfileAnimation>
   Widget build(BuildContext context) {
     return SlideTransition(
       position: _animation,
-      child: CircleAvatar(
-        radius: 10.sw,
-        backgroundImage: const AssetImage(
-          "assets/images/nick_without.png",
+      child: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: bgColor2,
+            width: 10,
+          ),
+        ),
+        child: CircleAvatar(
+
+          radius: 40.sp,
+          backgroundImage: const AssetImage(
+            "assets/images/nick_without.jpg",
+          ),
         ),
       ),
     );

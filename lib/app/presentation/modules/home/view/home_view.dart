@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_meedu/screen_utils.dart';
 import 'package:portfolio_nick_flutter/app/presentation/modules/home/view/pages/about_me.dart';
+import 'package:portfolio_nick_flutter/app/presentation/modules/home/view/pages/experiencia.dart';
 import 'package:portfolio_nick_flutter/app/presentation/modules/home/view/pages/footer.dart';
 import 'package:portfolio_nick_flutter/app/presentation/modules/home/view/pages/home.dart';
 import 'package:portfolio_nick_flutter/app/presentation/modules/home/view/pages/my_services.dart';
@@ -28,6 +29,7 @@ class _HomeViewState extends State<HomeView> {
     'Inicio',
     'Sobre mi',
     'Mis habilidades',
+    'Mi experiencia',
     'Servicios',
     'Portafolio',
   ];
@@ -38,8 +40,7 @@ class _HomeViewState extends State<HomeView> {
             index: index,
             duration: const Duration(seconds: 2),
             curve: Curves.fastLinearToSlowEaseIn)
-        .whenComplete(() {
-    });
+        .whenComplete(() {});
   }
 
   @override
@@ -48,6 +49,7 @@ class _HomeViewState extends State<HomeView> {
       Home(),
       AboutMe(),
       MySkins(),
+      Experiencia(),
       MyServices(),
       Portfolio(),
       Footer(),
@@ -76,7 +78,7 @@ class _HomeViewState extends State<HomeView> {
                           style: headerTextStyle(),
                         ),
                         SizedBox(
-                          height: 30,
+                          height: 40,
                           child: ListView.separated(
                             itemCount: menuItems.length,
                             shrinkWrap: true,
@@ -107,13 +109,12 @@ class _HomeViewState extends State<HomeView> {
                         ),
                       ])
                 : Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         'NICK LEDESMA',
                         style: headerTextStyle(),
                       ),
-                      const Spacer(),
                       PopupMenuButton(
                         icon: const Icon(
                           Icons.menu_sharp,

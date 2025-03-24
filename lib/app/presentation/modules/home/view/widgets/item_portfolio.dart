@@ -1,21 +1,16 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:loop_page_view/loop_page_view.dart';
-
-import '../../../../../data/helpers/typography.dart';
 
 class ItemPortfolio extends StatelessWidget {
-  ItemPortfolio(
-      {super.key,
-      required this.imagePortada,
-      required this.imagesList,
-      });
+  ItemPortfolio({
+    super.key,
+    required this.imagePortada,
+    required this.imagesList,
+  });
 
-  final String imagePortada;
-  final List<String> imagesList;
+  final String imagePortada; // Ruta del asset local
+  final List<String> imagesList; // Lista de rutas de assets locales
 
-
-  void _showPhotoViewerDialog(BuildContext context, ) {
+  void _showPhotoViewerDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
@@ -29,7 +24,7 @@ class ItemPortfolio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => _showPhotoViewerDialog(context,),
+      onTap: () => _showPhotoViewerDialog(context),
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -37,7 +32,12 @@ class ItemPortfolio extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               image: DecorationImage(
-                  image: AssetImage(imagePortada), fit: BoxFit.fill),
+                image: AssetImage(imagePortada), // Solo cargamos imágenes locales
+                fit: BoxFit.cover,
+                onError: (error, stackTrace) {
+                  debugPrint('Error al cargar la imagen: $error');
+                },
+              ),
             ),
           ),
         ],
@@ -52,7 +52,6 @@ class PhotoViewerDialog extends StatefulWidget {
   const PhotoViewerDialog({
     Key? key,
     required this.photos,
-
   }) : super(key: key);
 
   @override
@@ -92,13 +91,15 @@ class _PhotoViewerDialogState extends State<PhotoViewerDialog> {
         children: [
           // Imagen actual
           Center(
-            child: Image.network(
-              widget.photos[_currentIndex],
+            child: Image.asset(
+              widget.photos[_currentIndex], // Cargamos imágenes locales
               fit: BoxFit.contain,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
+              errorBuilder: (context, error, stackTrace) {
                 return const Center(
-                  child: CircularProgressIndicator(),
+                  child: Text(
+                    'Error al cargar la imagen',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 );
               },
             ),

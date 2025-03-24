@@ -15,15 +15,22 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.sw, vertical: 20),
-      child: Row(
-        spacing: 20,
-        children: [
-          Expanded(child: _informationMain()),
-          ProfileAnimation(),
-        ],
-      ),
-    );
+        padding: EdgeInsets.symmetric(horizontal: 10.sw, vertical: 20),
+        child: (Device.screenType == ScreenType.tablet)
+            ? Row(
+                spacing: 20,
+                children: [
+                  Expanded(child: _informationMain()),
+                  ProfileAnimation(),
+                ],
+              )
+            : Column(
+                spacing: 20,
+                children: [
+                  ProfileAnimation(),
+                  _informationMain(),
+                ],
+              ));
   }
 
   Column _informationMain() {
@@ -83,6 +90,20 @@ class Home extends StatelessWidget {
         contactLinks(),
         SizedBox(height: 20.0),
         FadeInUp(
+          duration: const Duration(milliseconds: 1600),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Celular: +51 993475959",
+                style: normalStyle(),
+              ),
+              Text("Correo: kyva1125@hotmail.com", style: normalStyle()),
+            ],
+          ),
+        ),
+        SizedBox(height: 20.0),
+        FadeInUp(
           duration: const Duration(milliseconds: 1800),
           child: ElevatedButton(
               onPressed: () async {
@@ -110,6 +131,12 @@ class Home extends StatelessWidget {
           _itemContact(FontAwesomeIcons.linkedin, () async {
             final Uri url = Uri.parse(
                 'https://www.linkedin.com/in/nick-bryan-ledesma-corilloclla-4873761a2/');
+            if (!await launchUrl(url)) {
+              print('Could not launch $url');
+            }
+          }),
+          _itemContact(FontAwesomeIcons.whatsapp, () async {
+            final Uri url = Uri.parse('https://wa.me/+51993475959');
             if (!await launchUrl(url)) {
               print('Could not launch $url');
             }

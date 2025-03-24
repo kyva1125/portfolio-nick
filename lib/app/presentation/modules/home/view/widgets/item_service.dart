@@ -49,8 +49,8 @@ class ItemService extends StatelessWidget {
           ),
           Text(
             content,
-            style: normalStyle(size: 10),
-            textAlign: TextAlign.justify,
+            style: normalStyle(size: 12),
+            textAlign: TextAlign.center,
           ),
         ],
       ),
