@@ -67,6 +67,12 @@ class Home extends StatelessWidget {
                   TyperAnimatedText(
                     'Flutter Developer',
                     textStyle: montserratStyle(color: Colors.lightBlue),
+                  ),TyperAnimatedText(
+                    'React Developer',
+                    textStyle: montserratStyle(color: Colors.lightBlue),
+                  ),TyperAnimatedText(
+                    'Node Developer',
+                    textStyle: montserratStyle(color: Colors.lightBlue),
                   ),
                   TyperAnimatedText('UX/UI',
                       textStyle: montserratStyle(color: Colors.lightBlue)),
@@ -82,7 +88,7 @@ class Home extends StatelessWidget {
         FadeInDown(
           duration: const Duration(milliseconds: 1600),
           child: Text(
-            'Soy Desarrollador de aplicaciones Móviles,  Web  y  Desktop.  Soy Proactivo desarrollando  rápido mis  actividades,  responsable, autodidacta y un apasionado de la enseñanza y tecnologías.',
+            'Soy Desarrollador de aplicaciones Móviles con Flutter, Web con React y Backend con Node.js. Especialista en crear soluciones completas y escalables. Soy Proactivo desarrollando rápido mis actividades, responsable, autodidacta y un apasionado de la enseñanza y tecnologías.',
             style: normalStyle(),
           ),
         ),
@@ -103,21 +109,21 @@ class Home extends StatelessWidget {
           ),
         ),
         SizedBox(height: 20.0),
-        FadeInUp(
-          duration: const Duration(milliseconds: 1800),
-          child: ElevatedButton(
-              onPressed: () async {
-                final Uri url = Uri.parse(
-                    'https://firebasestorage.googleapis.com/v0/b/portfolio-nick-99602.appspot.com/o/CV%20Nick%20Ledesma.pdf?alt=media&token=ab778dcd-c528-451e-b5a8-29d201b5e792');
-                if (!await launchUrl(url)) {
-                  print('Could not launch $url');
-                }
-              },
-              child: Text(
-                'Descargar CV',
-                style: normalStyle(color: bgColor),
-              )),
-        ),
+        // FadeInUp(
+        //   duration: const Duration(milliseconds: 1800),
+        //   child: ElevatedButton(
+        //       onPressed: () async {
+        //         final Uri url = Uri.parse(
+        //             'https://firebasestorage.googleapis.com/v0/b/portfolio-nick-99602.appspot.com/o/CV%20Nick%20Ledesma.pdf?alt=media&token=ab778dcd-c528-451e-b5a8-29d201b5e792');
+        //         if (!await launchUrl(url)) {
+        //           print('Could not launch $url');
+        //         }
+        //       },
+        //       child: Text(
+        //         'Descargar CV',
+        //         style: normalStyle(color: bgColor),
+        //       )),
+        // ),
       ],
     );
   }

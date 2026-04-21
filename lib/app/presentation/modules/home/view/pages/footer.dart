@@ -15,7 +15,7 @@ class Footer extends StatelessWidget {
         color: Colors.white,
         child: Center(
           child: Text(
-            "Derechos NO reservados (Compaltan Compaltan) 2025",
+            "Derechos NO reservados (Compaltan Compaltan) 2026",
             style: montserratStyle(color: bgColor2),
           ),
         ));

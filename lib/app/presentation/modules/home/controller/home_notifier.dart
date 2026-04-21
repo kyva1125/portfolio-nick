@@ -17,6 +17,9 @@ class HomeNotifier extends StateNotifier<HomeState> {
     imagesComsatel,
     imagesEnotria,
     imagesAndytrack,
+    imagesDevida,
+    imagesAndytrack,
+    imagesMerakicare,
   ];
 
   List imagesPortfolio = <String>[
@@ -30,8 +33,27 @@ class HomeNotifier extends StateNotifier<HomeState> {
     "assets/images/seguridad/1.png",
     "assets/images/comsatel/1.jpg",
     "assets/images/enotria/1.jpg",
+    "assets/images/devida/1.png",
     "assets/images/andytrack/1.jpg",
+    "assets/images/merakicare/1.jpeg",
   ];
+
+  static final List<String> imagesDevida = [
+    'assets/images/devida/1.png',
+    'assets/images/devida/2.png',
+    'assets/images/devida/3.png',
+  ];
+
+  static final List<String> imagesMerakicare = [
+    'assets/images/merakicare/1.jpeg',
+    'assets/images/merakicare/2.jpeg',
+    'assets/images/merakicare/3.jpeg',
+    'assets/images/merakicare/4.jpeg',
+    'assets/images/merakicare/5.jpeg',
+    'assets/images/merakicare/6.jpeg',
+
+  ];
+
 
   static final List<String> imagesCine = [
     'assets/images/cine/1.png',

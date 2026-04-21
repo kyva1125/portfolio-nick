@@ -18,7 +18,7 @@ class TitleArea extends StatelessWidget {
             style: headingStyles(),
             children: [
               TextSpan(
-                text: '$segundo',
+                text: segundo,
                 style: headingStyles(color: Colors.red),
               )
             ],

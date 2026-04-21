@@ -33,7 +33,9 @@ class MySkins extends StatelessWidget {
               _itemSkin(FontAwesomeIcons.apple),
               _itemSkin(FontAwesomeIcons.java),
               _itemSkin(FontAwesomeIcons.js),
+              _itemSkin(FontAwesomeIcons.react),
               _itemSkin(FontAwesomeIcons.node),
+              _itemSkin(FontAwesomeIcons.database),
               _itemSkin(FontAwesomeIcons.figma),
               _itemSkin(FontAwesomeIcons.git),
             ],
@@ -44,13 +46,13 @@ class MySkins extends StatelessWidget {
   }
 
   Widget _itemSkin(
-    IconData icon
-) {
+      IconData icon
+      ) {
     return CircleAvatar(
       radius: 40,
       backgroundColor: Colors.white,
       child: FittedBox(
-        child: FaIcon(icon, color: bgColor2,)
+          child: FaIcon(icon, color: bgColor2,)
       ),
     );
   }

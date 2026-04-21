@@ -18,7 +18,7 @@ class Experiencia extends StatelessWidget {
                 isFirst: true,
                 alignment: TimelineAlign.center,
                 startChild:
-                    startTimeline('Junio 2024 - Presente', 'ANDES EXPRESS'),
+                    startTimeline('Junio 2024 - Enero 2026', 'ANDES EXPRESS'),
                 endChild: endTimeline(
                   'Analista Flutter Developer',
                   "Desarrollo y reingenieria del aplicativo Andytrack para recojo y reparto de productos",
